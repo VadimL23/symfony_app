@@ -1,0 +1,30 @@
+{
+    "name": "Symfony PHP 8.3 & PostgreSQL",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+
+    // Проброс порта 8000, чтобы можно было открыть сервер Symfony в браузере хоста
+    // Проброс 5432 для postgresql
+    // Проброс 8080 для pgadmin
+    "forwardPorts": [8000, 5432, 8080],
+
+    // Автоматическая установка зависимостей Composer после создания контейнера
+    "postCreateCommand": "composer install",
+
+    // Установка полезных расширений VS Code
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bmewburn.vscode-intelephense-client",
+                "xdebug.php-debug"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            }
+        }
+    },
+
+    // Использование пользователя vscode, созданного в Dockerfile
+    "remoteUser": "vscode"
+}
