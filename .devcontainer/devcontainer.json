@@ -4,13 +4,16 @@
     "service": "app",
     "workspaceFolder": "/workspace",
 
-    // Проброс порта 8000, чтобы можно было открыть сервер Symfony в браузере хоста
-    // Проброс 5432 для postgresql
-    // Проброс 8080 для pgadmin
-    "forwardPorts": [8000, 5432, 8080],
+    // Forward the development server and the Nginx-served production build.
+    "forwardPorts": ["nginx:80", 5173],
 
-    // Автоматическая установка зависимостей Composer после создания контейнера
-    "postCreateCommand": "composer install",
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "22"
+        }
+    },
+
+    "postCreateCommand": "composer install && npm --prefix frontend ci && npm --prefix frontend run build",
 
     // Установка полезных расширений VS Code
     "customizations": {
